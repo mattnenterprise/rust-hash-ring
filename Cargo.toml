@@ -1,0 +1,12 @@
+[package]
+
+name = "hash_ring"
+version = "0.0.1"
+authors = ["Matt McCoy <mattnenterprise@yahoo.com>"]
+
+[dependencies]
+rust-crypto = "*"
+
+[[bin]]
+name = "example"
+path = "example.rs"
