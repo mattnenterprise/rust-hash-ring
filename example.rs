@@ -25,19 +25,19 @@ fn main() {
 
 	let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
 
-	println!("{}", hash_ring.get_node(String::from_str("hello")).to_string());
+	println!("{}", hash_ring.get_node("hello".to_string()).to_string());
 
-	println!("{}", hash_ring.get_node(String::from_str("dude")).to_string());
+	println!("{}", hash_ring.get_node("dude".to_string()).to_string());
 
-	println!("{}", hash_ring.get_node(String::from_str("martian")).to_string());
+	println!("{}", hash_ring.get_node("martian".to_string()).to_string());
 
-	println!("{}", hash_ring.get_node(String::from_str("tardis")).to_string());
+	println!("{}", hash_ring.get_node("tardis".to_string()).to_string());
 
 	hash_ring.remove_node(&NodeInfo{host: "localhost", port: 15329});
 
-	println!("{}", hash_ring.get_node(String::from_str("hello")).to_string());
+	println!("{}", hash_ring.get_node("hello".to_string()).to_string());
 
 	hash_ring.add_node(&NodeInfo{host: "localhost", port: 15329});
 
-	println!("{}", hash_ring.get_node(String::from_str("hello")).to_string());
+	println!("{}", hash_ring.get_node("hello".to_string()).to_string());
 }
