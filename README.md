@@ -9,8 +9,8 @@ Consistent Hashing library for Rust
 
 Add hash_ring via your `Cargo.toml`
 ```toml
-[dependencies.hash_ring]
-git = "https://github.com/mattnenterprise/rust-hash-ring"
+[dependencies]
+hash_ring = "*"
 ```
 
 ### Contributing
