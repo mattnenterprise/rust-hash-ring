@@ -3,6 +3,21 @@ use crypto::digest::Digest;
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
 
+// As a convenience, rust-hash-ring provides a defaul struct to hold node
+// information. It is optional and you can define yours.
+#[derive(Clone)]
+pub struct NodeInfo {
+	pub host: &'static str,
+	pub port: u16
+}
+
+impl ToString for NodeInfo {
+	fn to_string(&self) -> String {
+		format!("{}:{}", self.host, self.port)
+	}
+}
+
+
 pub struct HashRing<T> {
 	replicas: isize,
 	ring: HashMap<String, T>,
@@ -74,4 +89,69 @@ impl<T: ToString+Clone> HashRing<T> {
 		md5.input_str(key.as_ref());
 		return md5.result_str();
 	}
+}
+
+#[cfg(test)]
+mod test {
+	use hash_ring::{NodeInfo, HashRing};
+
+	#[test]
+	fn test_default_nodes() {
+		let mut nodes: Vec<NodeInfo> = Vec::new();
+		nodes.push(NodeInfo{host: "localhost", port: 15324});
+		nodes.push(NodeInfo{host: "localhost", port: 15325});
+		nodes.push(NodeInfo{host: "localhost", port: 15326});
+		nodes.push(NodeInfo{host: "localhost", port: 15327});
+		nodes.push(NodeInfo{host: "localhost", port: 15328});
+		nodes.push(NodeInfo{host: "localhost", port: 15329});
+
+		let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
+
+		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
+		assert_eq!("localhost:15326", hash_ring.get_node("dude".to_string()).to_string());
+
+		hash_ring.remove_node(&NodeInfo{host: "localhost", port: 15329});
+		assert_eq!("localhost:15327", hash_ring.get_node("hello".to_string()).to_string());
+
+		hash_ring.add_node(&NodeInfo{host: "localhost", port: 15329});
+		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
+
+	}
+
+	#[derive(Clone)]
+	struct CustomNodeInfo {
+		pub host: &'static str,
+		pub port: u16
+	}
+
+	impl ToString for CustomNodeInfo {
+		fn to_string(&self) -> String {
+			format!("{}:{}", self.host, self.port)
+		}
+	}
+
+
+	#[test]
+	fn test_custom_nodes() {
+
+		let mut nodes: Vec<CustomNodeInfo> = Vec::new();
+		nodes.push(CustomNodeInfo{host: "localhost", port: 15324});
+		nodes.push(CustomNodeInfo{host: "localhost", port: 15325});
+		nodes.push(CustomNodeInfo{host: "localhost", port: 15326});
+		nodes.push(CustomNodeInfo{host: "localhost", port: 15327});
+		nodes.push(CustomNodeInfo{host: "localhost", port: 15328});
+		nodes.push(CustomNodeInfo{host: "localhost", port: 15329});
+
+		let mut hash_ring: HashRing<CustomNodeInfo> = HashRing::new(nodes, 10);
+
+		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
+		assert_eq!("localhost:15326", hash_ring.get_node("dude".to_string()).to_string());
+
+		hash_ring.remove_node(&CustomNodeInfo{host: "localhost", port: 15329});
+		assert_eq!("localhost:15327", hash_ring.get_node("hello".to_string()).to_string());
+
+		hash_ring.add_node(&CustomNodeInfo{host: "localhost", port: 15329});
+		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
+
+	}	
 }

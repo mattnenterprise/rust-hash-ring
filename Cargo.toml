@@ -10,7 +10,3 @@ license = "MIT"
 
 [dependencies]
 rust-crypto = "*"
-
-[[bin]]
-name = "example"
-path = "example.rs"
