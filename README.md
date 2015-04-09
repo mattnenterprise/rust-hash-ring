@@ -20,19 +20,8 @@ hash_ring = "*"
 ```rs
 extern crate hash_ring;
 
-use hash_ring::hash_ring::HashRing;
-
-#[derive(Clone)]
-struct NodeInfo {
-    pub host: &'static str,
-    pub port: u16
-}
-
-impl ToString for NodeInfo {
-    fn to_string(&self) -> String {
-        format!("{}:{}", self.host, self.port)
-    }
-}
+use hash_ring::HashRing;
+use hash_ring::NodeInfo;
 
 fn main() {
     let mut nodes: Vec<NodeInfo> = Vec::new();

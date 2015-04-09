@@ -3,5 +3,6 @@
 #![crate_type = "lib"]
 
 extern crate crypto;
-
-pub mod hash_ring;
+mod hash_ring;
+pub use hash_ring::NodeInfo;
+pub use hash_ring::HashRing;
