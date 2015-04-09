@@ -1,3 +1,4 @@
+#![feature(collections)]
 #![crate_name = "hash_ring"]
 #![crate_type = "lib"]
 
