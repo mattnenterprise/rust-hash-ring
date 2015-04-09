@@ -20,7 +20,7 @@ git = "https://github.com/mattnenterprise/rust-hash-ring"
 ```rs
 extern crate hash_ring;
 
-use hash_ring::hash_ring::HashRing;
+use hash_ring::HashRing;
 
 #[derive(Clone)]
 struct NodeInfo {
