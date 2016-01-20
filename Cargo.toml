@@ -1,7 +1,7 @@
 [package]
 
 name = "hash_ring"
-version = "0.0.3"
+version = "0.0.5"
 authors = ["Matt McCoy <mattnenterprise@yahoo.com>"]
 repository = "https://github.com/mattnenterprise/rust-hash-ring"
 description = "consistent hashing library for Rust"
@@ -9,4 +9,4 @@ readme = "README.md"
 license = "MIT"
 
 [dependencies]
-rust-crypto = "*"
+rust-crypto = "0.2.34"
