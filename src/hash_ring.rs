@@ -48,7 +48,7 @@ impl<T: ToString+Clone> HashRing<T> {
 			self.sorted_keys.push(key.clone());
 		}
 
-		self.sorted_keys = BinaryHeap::from_vec(self.sorted_keys.clone()).into_sorted_vec();
+		self.sorted_keys = BinaryHeap::from(self.sorted_keys.clone()).into_sorted_vec();
 	}
 
 	/// Deletes a node from the hash ring
