@@ -68,19 +68,23 @@ impl<T: ToString+Clone> HashRing<T> {
 	}
 
 	/// Gets the node a specific key belongs to
-	pub fn get_node(&mut self, key: String) -> &T {
+	pub fn get_node(&mut self, key: String) -> Option<&T> {
+		if self.sorted_keys.is_empty() {
+			return None;
+		}
+
 		let generated_key = self.gen_key(key);
 		let nodes = self.sorted_keys.clone();
 
 		for i in 0..nodes.len() {
 			let node = &nodes[i];
 			if generated_key <= *node {
-				return self.ring.get(node).unwrap();
+				return Some(self.ring.get(node).unwrap());
 			}
 		}
 
 		let node = &nodes[0];
-		return self.ring.get(node).unwrap();
+		return Some(self.ring.get(node).unwrap());
 	}
 
 	/// Generates a key from a string value
@@ -96,6 +100,12 @@ mod test {
 	use hash_ring::{NodeInfo, HashRing};
 
 	#[test]
+	fn test_empty_ring() {
+		let mut hash_ring: HashRing<NodeInfo> = HashRing::new(vec![], 10);
+		assert_eq!(None, hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
+	}
+
+	#[test]
 	fn test_default_nodes() {
 		let mut nodes: Vec<NodeInfo> = Vec::new();
 		nodes.push(NodeInfo{host: "localhost", port: 15324});
@@ -107,14 +117,14 @@ mod test {
 
 		let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
 
-		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
-		assert_eq!("localhost:15326", hash_ring.get_node("dude".to_string()).to_string());
+		assert_eq!(Some("localhost:15329".to_string()), hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
+		assert_eq!(Some("localhost:15326".to_string()), hash_ring.get_node("dude".to_string()).map(|x| x.to_string()));
 
 		hash_ring.remove_node(&NodeInfo{host: "localhost", port: 15329});
-		assert_eq!("localhost:15327", hash_ring.get_node("hello".to_string()).to_string());
+		assert_eq!(Some("localhost:15327".to_string()), hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
 
 		hash_ring.add_node(&NodeInfo{host: "localhost", port: 15329});
-		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
+		assert_eq!(Some("localhost:15329".to_string()), hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
 
 	}
 
@@ -144,14 +154,14 @@ mod test {
 
 		let mut hash_ring: HashRing<CustomNodeInfo> = HashRing::new(nodes, 10);
 
-		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
-		assert_eq!("localhost:15326", hash_ring.get_node("dude".to_string()).to_string());
+		assert_eq!(Some("localhost:15329".to_string()), hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
+		assert_eq!(Some("localhost:15326".to_string()), hash_ring.get_node("dude".to_string()).map(|x| x.to_string()));
 
 		hash_ring.remove_node(&CustomNodeInfo{host: "localhost", port: 15329});
-		assert_eq!("localhost:15327", hash_ring.get_node("hello".to_string()).to_string());
+		assert_eq!(Some("localhost:15327".to_string()), hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
 
 		hash_ring.add_node(&CustomNodeInfo{host: "localhost", port: 15329});
-		assert_eq!("localhost:15329", hash_ring.get_node("hello".to_string()).to_string());
+		assert_eq!(Some("localhost:15329".to_string()), hash_ring.get_node("hello".to_string()).map(|x| x.to_string()));
 
-	}	
+	}
 }
