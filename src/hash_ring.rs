@@ -3,8 +3,8 @@ use crypto::digest::Digest;
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
 
-// As a convenience, rust-hash-ring provides a defaul struct to hold node
-// information. It is optional and you can define yours.
+/// As a convenience, rust-hash-ring provides a default struct to hold node
+/// information. It is optional and you can define your own.
 #[derive(Clone)]
 pub struct NodeInfo {
 	pub host: &'static str,
@@ -17,7 +17,7 @@ impl ToString for NodeInfo {
 	}
 }
 
-
+/// HashRing
 pub struct HashRing<T> {
 	replicas: isize,
 	ring: HashMap<String, T>,
