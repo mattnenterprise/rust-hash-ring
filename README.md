@@ -17,7 +17,7 @@ hash_ring = "*"
  Just fork it, implement your changes and submit a pull request.
 
 ### Usage
-```rs
+```rust
 extern crate hash_ring;
 
 use hash_ring::HashRing;
