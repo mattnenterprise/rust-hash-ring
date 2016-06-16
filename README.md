@@ -4,6 +4,7 @@ rust-hash-ring
 Consistent Hashing library for Rust
 
 [![Build Status](https://travis-ci.org/mattnenterprise/rust-hash-ring.svg)](https://travis-ci.org/mattnenterprise/rust-hash-ring)
+[![creates.io](http://meritbadge.herokuapp.com/hash_ring)](https://crates.io/crates/hash_ring)
 
 ### Installation
 
