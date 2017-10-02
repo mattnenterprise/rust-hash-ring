@@ -7,7 +7,7 @@ Consistent Hashing library for Rust
 [![crates.io](http://meritbadge.herokuapp.com/hash_ring)](https://crates.io/crates/hash_ring)
 [![Coverage Status](https://coveralls.io/repos/github/mattnenterprise/rust-hash-ring/badge.svg?branch=master)](https://coveralls.io/github/mattnenterprise/rust-hash-ring?branch=master)
 
-[Documentation](http://mattnenterprise.github.io/rust-hash-ring)
+[Documentation](https://docs.rs/hash_ring)
 
 ### Usage
 ```rust

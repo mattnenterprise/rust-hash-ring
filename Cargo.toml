@@ -3,7 +3,7 @@
 name = "hash_ring"
 version = "0.0.5"
 authors = ["Matt McCoy <mattnenterprise@yahoo.com>"]
-documentation = "http://mattnenterprise.github.io/rust-hash-ring"
+documentation = "https://docs.rs/hash_ring"
 repository = "https://github.com/mattnenterprise/rust-hash-ring"
 homepage = "https://github.com/mattnenterprise/rust-hash-ring"
 description = "Consistent Hashing library for Rust"
