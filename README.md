@@ -4,21 +4,10 @@ rust-hash-ring
 Consistent Hashing library for Rust
 
 [![Build Status](https://travis-ci.org/mattnenterprise/rust-hash-ring.svg)](https://travis-ci.org/mattnenterprise/rust-hash-ring)
-[![creates.io](http://meritbadge.herokuapp.com/hash_ring)](https://crates.io/crates/hash_ring)
+[![crates.io](http://meritbadge.herokuapp.com/hash_ring)](https://crates.io/crates/hash_ring)
 [![Coverage Status](https://coveralls.io/repos/github/mattnenterprise/rust-hash-ring/badge.svg?branch=master)](https://coveralls.io/github/mattnenterprise/rust-hash-ring?branch=master)
 
 [Documentation](http://mattnenterprise.github.io/rust-hash-ring)
-
-### Installation
-
-Add hash_ring via your `Cargo.toml`
-```toml
-[dependencies]
-hash_ring = "*"
-```
-
-### Contributing
- Just fork it, implement your changes and submit a pull request.
 
 ### Usage
 ```rust
@@ -55,6 +44,9 @@ fn main() {
     println!("{}", hash_ring.get_node(String::from_str("hello")).to_string());
 }
 ```
+
+### Contributing
+ Just fork it, implement your changes and submit a pull request.
 
 ### License
 
