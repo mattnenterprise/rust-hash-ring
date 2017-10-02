@@ -11,8 +11,7 @@ script:
 - |
   travis-cargo build &&
   travis-cargo test &&
-  travis-cargo bench &&
-  travis-cargo --only stable doc
+  travis-cargo bench
 addons:
   apt:
     packages:
@@ -20,5 +19,4 @@ addons:
     - libelf-dev
     - libdw-dev
 after_success:
-- travis-cargo --only stable doc-upload
 - travis-cargo coveralls --no-sudo
