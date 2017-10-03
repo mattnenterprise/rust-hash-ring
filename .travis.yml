@@ -1,22 +1,35 @@
 sudo: false
 language: rust
-rust:
-- stable
-- beta
-before_install:
-- |
-  pip install 'travis-cargo<0.2' --user &&
-  export PATH=$HOME/.local/bin:$PATH
-script:
-- |
-  travis-cargo build &&
-  travis-cargo test &&
-  travis-cargo bench
+# Dependenices of kcov, used by coverage
 addons:
   apt:
     packages:
-    - libcurl4-openssl-dev
-    - libelf-dev
-    - libdw-dev
+      - libcurl4-openssl-dev
+      - libelf-dev
+      - libdw-dev
+      - binutils-dev
+      - cmake
+    sources:
+      - kalalris-make
+
+rust:
+- stable
+- beta
+- nightly
+
+matrix:
+  allow_failures:
+    - rust: nightly
+
+before_install:
+- |
+  cargo install cargo-travis &&
+  export PATH=$HOME/.cargo/bin:$PATH
+script:
+- |
+  cargo build &&
+  cargo test &&
+  cargo bench
+
 after_success:
-- travis-cargo coveralls --no-sudo
+- "if [ $TRAVIS_RUST_VERSION = stable ]; then cargo coveralls; fi"
