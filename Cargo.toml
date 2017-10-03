@@ -18,4 +18,4 @@ travis-ci = { repository = "mattnenterprise/rust-imap" }
 coveralls = { repository = "mattnenterprise/rust-imap", branch = "master", service = "github" }
 
 [dependencies]
-rust-crypto = "0.2.34"
+md5 = "0.3.5"
