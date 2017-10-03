@@ -1,5 +1,4 @@
-use crypto::md5::Md5;
-use crypto::digest::Digest;
+use md5;
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
 
@@ -89,9 +88,8 @@ impl<T: ToString+Clone> HashRing<T> {
 
 	/// Generates a key from a string value
 	fn gen_key(&mut self, key: String) -> String {
-		let mut md5: Md5 = Md5::new();
-		md5.input_str(key.as_ref());
-		return md5.result_str();
+		let digest = md5::compute(key);
+		format!("{:x}", digest)
 	}
 }
 
