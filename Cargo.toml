@@ -10,7 +10,7 @@ description = "Consistent Hashing library for Rust"
 readme = "README.md"
 license = "MIT"
 
-keywords = ["consistent hashing", "hash ring"]
+keywords = ["consistent-hashing", "hash-ring"]
 categories = ["data-structures"]
 
 [dependencies]
