@@ -10,5 +10,8 @@ description = "Consistent Hashing library for Rust"
 readme = "README.md"
 license = "MIT"
 
+keywords = ["consistent hashing", "hash ring"]
+categories = ["data-structures"]
+
 [dependencies]
 rust-crypto = "0.2.34"
