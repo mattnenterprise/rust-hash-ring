@@ -3,8 +3,11 @@ rust-hash-ring
 
 Consistent Hashing library for Rust
 
+[![Crates.io](https://img.shields.io/crates/d/hash_ring.svg)](https://crates.io/crates/hash_ring)
+[![crates.io](https://img.shields.io/crates/v/hash_ring.svg)](https://crates.io/crates/hash_ring)
+[![Crates.io](https://img.shields.io/crates/l/hash_ring.svg)](https://crates.io/crates/hash_ring)
 [![Build Status](https://travis-ci.org/mattnenterprise/rust-hash-ring.svg)](https://travis-ci.org/mattnenterprise/rust-hash-ring)
-[![crates.io](http://meritbadge.herokuapp.com/hash_ring)](https://crates.io/crates/hash_ring)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/mattnenterprise/rust-hash-ring?svg=true)](https://ci.appveyor.com/api/projects/status/github/mattnenterprise/rust-hash-ring)
 [![Coverage Status](https://coveralls.io/repos/github/mattnenterprise/rust-hash-ring/badge.svg?branch=master)](https://coveralls.io/github/mattnenterprise/rust-hash-ring?branch=master)
 
 [Documentation](https://docs.rs/hash_ring)
