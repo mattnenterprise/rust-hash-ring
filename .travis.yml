@@ -12,6 +12,10 @@ addons:
     sources:
       - kalalris-make
 
+os:
+- linux
+- osx
+
 rust:
 - stable
 - beta
@@ -32,4 +36,6 @@ script:
   cargo bench
 
 after_success:
-- "if [ $TRAVIS_RUST_VERSION = stable ]; then cargo coveralls; fi"
+- if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_RUST_VERSION" == "stable" ]; then
+    cargo coveralls
+  fi
