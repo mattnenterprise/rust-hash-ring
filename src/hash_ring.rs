@@ -98,6 +98,7 @@ impl<T: ToString + Clone> HashRing<T> {
 mod test {
     use hash_ring::{NodeInfo, HashRing};
 
+    // Defines a NodeInfo for a localhost address with a given port.
     fn node(port: u16) -> NodeInfo {
         NodeInfo {
             host: "localhost",
@@ -130,9 +131,8 @@ mod test {
         hash_ring.remove_node(&node(15329));
         assert_eq!(Some(&node(15327)), hash_ring.get_node("hello".to_string()));
 
-        hash_ring.add_node(node(15239));
+        hash_ring.add_node(&node(15329));
         assert_eq!(Some(&node(15329)), hash_ring.get_node("hello".to_string()));
-
     }
 
     #[derive(Clone)]
