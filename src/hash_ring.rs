@@ -1,4 +1,5 @@
-use md5;
+use fasthash::{XXHasher};
+use std::hash::{Hash, Hasher};
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
 
@@ -89,9 +90,15 @@ impl<T: ToString + Clone> HashRing<T> {
 
     /// Generates a key from a string value
     fn gen_key(&mut self, key: String) -> String {
-        let digest = md5::compute(key);
+        let digest = hash(&key);
         format!("{:x}", digest)
     }
+}
+
+fn hash<H: Hash>(t: &H) -> u64 {
+    let mut s: XXHasher = Default::default();
+    t.hash(&mut s);
+    s.finish()
 }
 
 #[cfg(test)]
@@ -125,14 +132,14 @@ mod test {
 
         let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
 
-        assert_eq!(Some(&node(15329)), hash_ring.get_node("hello".to_string()));
-        assert_eq!(Some(&node(15326)), hash_ring.get_node("dude".to_string()));
+        assert_eq!(Some(&node(15325)), hash_ring.get_node("hello".to_string()));
+        assert_eq!(Some(&node(15329)), hash_ring.get_node("dude".to_string()));
 
         hash_ring.remove_node(&node(15329));
-        assert_eq!(Some(&node(15327)), hash_ring.get_node("hello".to_string()));
+        assert_eq!(Some(&node(15325)), hash_ring.get_node("hello".to_string()));
 
         hash_ring.add_node(&node(15329));
-        assert_eq!(Some(&node(15329)), hash_ring.get_node("hello".to_string()));
+        assert_eq!(Some(&node(15329)), hash_ring.get_node("dude".to_string()));
     }
 
     #[derive(Clone)]
@@ -180,13 +187,13 @@ mod test {
         let mut hash_ring: HashRing<CustomNodeInfo> = HashRing::new(nodes, 10);
 
         assert_eq!(
-            Some("localhost:15329".to_string()),
+            Some("localhost:15325".to_string()),
             hash_ring.get_node("hello".to_string()).map(
                 |x| x.to_string(),
             )
         );
         assert_eq!(
-            Some("localhost:15326".to_string()),
+            Some("localhost:15329".to_string()),
             hash_ring.get_node("dude".to_string()).map(
                 |x| x.to_string(),
             )
@@ -197,7 +204,7 @@ mod test {
             port: 15329,
         });
         assert_eq!(
-            Some("localhost:15327".to_string()),
+            Some("localhost:15325".to_string()),
             hash_ring.get_node("hello".to_string()).map(
                 |x| x.to_string(),
             )
@@ -208,7 +215,7 @@ mod test {
             port: 15329,
         });
         assert_eq!(
-            Some("localhost:15329".to_string()),
+            Some("localhost:15325".to_string()),
             hash_ring.get_node("hello".to_string()).map(
                 |x| x.to_string(),
             )
