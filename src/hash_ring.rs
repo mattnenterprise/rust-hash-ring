@@ -18,6 +18,7 @@ impl ToString for NodeInfo {
 }
 
 /// HashRing
+#[derive(Debug, Clone)]
 pub struct HashRing<T> {
     replicas: isize,
     ring: HashMap<String, T>,
