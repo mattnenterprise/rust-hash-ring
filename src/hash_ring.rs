@@ -55,17 +55,19 @@ impl<T: ToString + Clone> HashRing<T> {
 
     /// Deletes a node from the hash ring
     pub fn remove_node(&mut self, node: &T) {
-        for i in 0..self.replicas {
-            let key = self.gen_key(format!("{}:{}", node.to_string(), i));
-            self.ring.remove(&key);
-            let mut index = 0;
-            for j in 0..self.sorted_keys.len() {
-                if self.sorted_keys[j] == key {
-                    index = j;
-                    break;
+        if self.sorted_keys.len() > 0 {
+            for i in 0..self.replicas {
+                let key = self.gen_key(format!("{}:{}", node.to_string(), i));
+                self.ring.remove(&key);
+                let mut index = 0;
+                for j in 0..self.sorted_keys.len() {
+                    if self.sorted_keys[j] == key {
+                        index = j;
+                        break;
+                    }
                 }
+                self.sorted_keys.remove(index);
             }
-            self.sorted_keys.remove(index);
         }
     }
 
