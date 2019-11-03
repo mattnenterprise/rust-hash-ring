@@ -18,6 +18,7 @@ impl ToString for NodeInfo {
 }
 
 /// HashRing
+#[derive(Debug, Clone)]
 pub struct HashRing<T> {
     replicas: isize,
     ring: HashMap<String, T>,
@@ -64,7 +65,9 @@ impl<T: ToString + Clone> HashRing<T> {
                     break;
                 }
             }
-            self.sorted_keys.remove(index);
+            if self.sorted_keys.len() > index{
+                self.sorted_keys.remove(index);
+            }
         }
     }
 
