@@ -18,4 +18,4 @@ travis-ci = { repository = "mattnenterprise/rust-hash-ring" }
 coveralls = { repository = "mattnenterprise/rust-hash-ring", branch = "master", service = "github" }
 
 [dependencies]
-md5 = "0.3.5"
+twox-hash = "1.5.0"
