@@ -64,7 +64,10 @@ impl<T: ToString + Clone> HashRing<T> {
                     break;
                 }
             }
-            self.sorted_keys.remove(index);
+
+            if !self.sorted_keys.is_empty() {
+                self.sorted_keys.remove(index);
+            }
         }
     }
 
