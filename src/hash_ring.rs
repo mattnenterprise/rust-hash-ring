@@ -220,6 +220,29 @@ mod test {
     }
 
     #[test]
+    fn test_remove_actual_node() {
+        let mut nodes: Vec<NodeInfo> = Vec::new();
+        nodes.push(node(15324));
+        nodes.push(node(15325));
+        nodes.push(node(15326));
+        nodes.push(node(15327));
+        nodes.push(node(15328));
+        nodes.push(node(15329));
+
+        let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
+
+        // This should be num nodes * num replicas
+        assert_eq!(60, hash_ring.sorted_keys.len());
+        assert_eq!(60, hash_ring.ring.len());
+
+        hash_ring.remove_node(&node(15326));
+
+        // This should be num nodes * num replicas
+        assert_eq!(50, hash_ring.sorted_keys.len());
+        assert_eq!(50, hash_ring.ring.len());
+    }
+
+    #[test]
     fn test_remove_non_existent_node() {
         let mut nodes: Vec<NodeInfo> = Vec::new();
         nodes.push(node(15324));
