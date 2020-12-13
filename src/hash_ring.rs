@@ -55,6 +55,9 @@ impl<T: ToString + Clone> HashRing<T> {
     pub fn remove_node(&mut self, node: &T) {
         for i in 0..self.replicas {
             let key = self.gen_key(format!("{}:{}", node.to_string(), i));
+            if !self.ring.contains_key(&key) {
+                return;
+            }
             self.ring.remove(&key);
             let mut index = 0;
             for j in 0..self.sorted_keys.len() {
@@ -214,5 +217,24 @@ mod test {
             )
         );
 
+    }
+
+    #[test]
+    fn test_remove_non_existent_node() {
+        let mut nodes: Vec<NodeInfo> = Vec::new();
+        nodes.push(node(15324));
+        nodes.push(node(15325));
+        nodes.push(node(15326));
+        nodes.push(node(15327));
+        nodes.push(node(15328));
+        nodes.push(node(15329));
+
+        let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
+
+        hash_ring.remove_node(&node(15330));
+
+        // This should be num nodes * num replicas
+        assert_eq!(60, hash_ring.sorted_keys.len());
+        assert_eq!(60, hash_ring.ring.len());
     }
 }
