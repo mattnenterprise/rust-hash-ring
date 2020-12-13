@@ -13,9 +13,5 @@ license = "MIT"
 keywords = ["consistent-hashing", "hash-ring"]
 categories = ["data-structures"]
 
-[badges]
-travis-ci = { repository = "mattnenterprise/rust-hash-ring" }
-coveralls = { repository = "mattnenterprise/rust-hash-ring", branch = "master", service = "github" }
-
 [dependencies]
 md5 = "0.3.5"
