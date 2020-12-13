@@ -34,7 +34,7 @@ impl<T: ToString + Clone> HashRing<T, XxHash64Hasher> {
     /// Creates a new hash ring with the specified nodes.
     /// Replicas is the number of virtual nodes each node has to make a better distribution.
     pub fn new(nodes: Vec<T>, replicas: isize) -> HashRing<T, XxHash64Hasher> {
-        return HashRing::with_hasher(nodes, replicas, XxHash64Hasher::default());
+        HashRing::with_hasher(nodes, replicas, XxHash64Hasher::default())
     }
 }
 
@@ -46,25 +46,24 @@ where
 
     pub fn with_hasher(nodes: Vec<T>, replicas: isize, hash_builder: S) -> HashRing<T, S> {
         let mut new_hash_ring: HashRing<T, S> = HashRing {
-            replicas: replicas,
+            replicas,
             ring: HashMap::new(),
             sorted_keys: Vec::new(),
-            hash_builder: hash_builder,
+            hash_builder,
         };
 
-        for i in 0..nodes.len() {
-            let n = &nodes[i];
+        for n in &nodes {
             new_hash_ring.add_node(n);
         }
-        return new_hash_ring;
+        new_hash_ring
     }
 
     /// Adds a node to the hash ring
     pub fn add_node(&mut self, node: &T) {
         for i in 0..self.replicas {
             let key = self.gen_key(format!("{}:{}", node.to_string(), i));
-            self.ring.insert(key.clone(), (*node).clone());
-            self.sorted_keys.push(key.clone());
+            self.ring.insert(key, (*node).clone());
+            self.sorted_keys.push(key);
         }
 
         self.sorted_keys = BinaryHeap::from(self.sorted_keys.clone()).into_sorted_vec();
@@ -98,8 +97,7 @@ where
         let generated_key = self.gen_key(key);
         let nodes = self.sorted_keys.clone();
 
-        for i in 0..nodes.len() {
-            let node = &nodes[i];
+        for node in &nodes {
             if generated_key <= *node {
                 return Some(self.ring.get(node).unwrap());
             }
@@ -113,7 +111,7 @@ where
     fn gen_key(&self, key: String) -> u64 {
         let mut hasher = self.hash_builder.build_hasher();
         hasher.write(key.as_bytes());
-        return hasher.finish();
+        hasher.finish()
     }
 }
 
