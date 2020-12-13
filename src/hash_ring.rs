@@ -68,7 +68,7 @@ impl<T: ToString + Clone> HashRing<T> {
     }
 
     /// Gets the node a specific key belongs to
-    pub fn get_node(&mut self, key: String) -> Option<&T> {
+    pub fn get_node(&self, key: String) -> Option<&T> {
         if self.sorted_keys.is_empty() {
             return None;
         }
@@ -88,7 +88,7 @@ impl<T: ToString + Clone> HashRing<T> {
     }
 
     /// Generates a key from a string value
-    fn gen_key(&mut self, key: String) -> String {
+    fn gen_key(&self, key: String) -> String {
         let digest = md5::compute(key);
         format!("{:x}", digest)
     }
@@ -108,7 +108,7 @@ mod test {
 
     #[test]
     fn test_empty_ring() {
-        let mut hash_ring: HashRing<NodeInfo> = HashRing::new(vec![], 10);
+        let hash_ring: HashRing<NodeInfo> = HashRing::new(vec![], 10);
         assert_eq!(None, hash_ring.get_node("hello".to_string()));
     }
 
