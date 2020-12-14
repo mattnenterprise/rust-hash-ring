@@ -1,9 +1,9 @@
+use std::collections::BinaryHeap;
+use std::collections::HashMap;
+use std::fmt::{self};
 use std::hash::BuildHasher;
 use std::hash::BuildHasherDefault;
 use std::hash::Hasher;
-use std::collections::HashMap;
-use std::collections::BinaryHeap;
-use std::fmt::{self};
 use twox_hash::XxHash64;
 
 /// As a convenience, rust-hash-ring provides a default struct to hold node
@@ -43,7 +43,6 @@ where
     T: ToString + Clone,
     S: BuildHasher,
 {
-
     pub fn with_hasher(nodes: Vec<T>, replicas: isize, hash_builder: S) -> HashRing<T, S> {
         let mut new_hash_ring: HashRing<T, S> = HashRing {
             replicas,
@@ -117,9 +116,9 @@ where
 
 #[cfg(test)]
 mod test {
-    use std::hash::Hasher;
+    use hash_ring::{HashRing, NodeInfo};
     use std::hash::BuildHasherDefault;
-    use hash_ring::{NodeInfo, HashRing};
+    use std::hash::Hasher;
 
     // Defines a NodeInfo for a localhost address with a given port.
     fn node(port: u16) -> NodeInfo {
@@ -170,7 +169,6 @@ mod test {
         }
     }
 
-
     #[test]
     fn test_custom_nodes() {
         let mut nodes: Vec<CustomNodeInfo> = Vec::new();
@@ -203,15 +201,15 @@ mod test {
 
         assert_eq!(
             Some("localhost:15326".to_string()),
-            hash_ring.get_node("hello".to_string()).map(
-                |x| x.to_string(),
-            )
+            hash_ring
+                .get_node("hello".to_string())
+                .map(|x| x.to_string(),)
         );
         assert_eq!(
             Some("localhost:15327".to_string()),
-            hash_ring.get_node("dude".to_string()).map(
-                |x| x.to_string(),
-            )
+            hash_ring
+                .get_node("dude".to_string())
+                .map(|x| x.to_string(),)
         );
 
         hash_ring.remove_node(&CustomNodeInfo {
@@ -220,9 +218,9 @@ mod test {
         });
         assert_eq!(
             Some("localhost:15326".to_string()),
-            hash_ring.get_node("hello".to_string()).map(
-                |x| x.to_string(),
-            )
+            hash_ring
+                .get_node("hello".to_string())
+                .map(|x| x.to_string(),)
         );
 
         hash_ring.add_node(&CustomNodeInfo {
@@ -231,9 +229,9 @@ mod test {
         });
         assert_eq!(
             Some("localhost:15326".to_string()),
-            hash_ring.get_node("hello".to_string()).map(
-                |x| x.to_string(),
-            )
+            hash_ring
+                .get_node("hello".to_string())
+                .map(|x| x.to_string(),)
         );
     }
 
@@ -304,7 +302,8 @@ mod test {
         nodes.push(node(15328));
         nodes.push(node(15329));
 
-        let hash_ring: HashRing<NodeInfo, ConstantBuildHasher> = HashRing::with_hasher(nodes, 10, ConstantBuildHasher::default());
+        let hash_ring: HashRing<NodeInfo, ConstantBuildHasher> =
+            HashRing::with_hasher(nodes, 10, ConstantBuildHasher::default());
 
         assert_eq!(Some(&node(15329)), hash_ring.get_node("hello".to_string()));
         assert_eq!(Some(&node(15329)), hash_ring.get_node("dude".to_string()));
