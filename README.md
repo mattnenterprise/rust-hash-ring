@@ -7,7 +7,7 @@ Consistent Hashing library for Rust
 [![crates.io](https://img.shields.io/crates/v/hash_ring.svg)](https://crates.io/crates/hash_ring)
 [![Crates.io](https://img.shields.io/crates/l/hash_ring.svg)](https://crates.io/crates/hash_ring)
 [![CI](https://github.com/mattnenterprise/rust-hash-ring/workflows/CI/badge.svg)](https://github.com/mattnenterprise/rust-hash-ring/actions?query=workflow%3ACI)
-[![Coverage Status](https://codecov.io/gh/mattnenterprise/rust-hash-ring/branch/2.0/graph/badge.svg)](https://app.codecov.io/gh/mattnenterprise/rust-hash-ring/branch/2.0)
+[![Coverage Status](https://codecov.io/gh/mattnenterprise/rust-hash-ring/branch/master/graph/badge.svg)](https://app.codecov.io/gh/mattnenterprise/rust-hash-ring/branch/master)
 
 [Documentation](https://docs.rs/hash_ring)
 
