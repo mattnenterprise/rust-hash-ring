@@ -6,16 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-    - CHANGELOG.md
-    - Support for switching out the hash function.
+- CHANGELOG.md
+- Support for switching out the hash function.
 
 ### Changed
-    - get_node function to take '&self' instead of '&mut self'.
-    - Moved from TravisCI and AppVeyor to Github Actions for CI.
-    - Moved from Coveralls to CodeCov for code coverage tracking.
-    - Hashing function changed to xxHash64 from md5.
+- get_node function to take '&self' instead of '&mut self'.
+- Moved from TravisCI and AppVeyor to Github Actions for CI.
+- Moved from Coveralls to CodeCov for code coverage tracking.
+- Hashing function changed to xxHash64 from md5.
 
 ### Fixed
-    - A bug that deleted the first node in the ring when trying to delete a node that didn't exist.
+- A bug that deleted the first node in the ring when trying to delete a node that didn't exist.
 
 [Unreleased]: https://github.com/mattnenterprise/rust-hash-ring/compare/v0.1.7...HEAD
