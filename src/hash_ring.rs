@@ -146,9 +146,12 @@ mod test {
 
         let mut hash_ring: HashRing<NodeInfo> = HashRing::new(nodes, 10);
 
+        assert_eq!(Some(&node(15324)), hash_ring.get_node("two".to_string()));
+        assert_eq!(Some(&node(15325)), hash_ring.get_node("seven".to_string()));
         assert_eq!(Some(&node(15326)), hash_ring.get_node("hello".to_string()));
         assert_eq!(Some(&node(15327)), hash_ring.get_node("dude".to_string()));
-        assert_eq!(Some(&node(15324)), hash_ring.get_node("two".to_string()));
+        assert_eq!(Some(&node(15328)), hash_ring.get_node("fourteen".to_string()));
+        assert_eq!(Some(&node(15329)), hash_ring.get_node("five".to_string()));
 
         hash_ring.remove_node(&node(15329));
         assert_eq!(Some(&node(15326)), hash_ring.get_node("hello".to_string()));
