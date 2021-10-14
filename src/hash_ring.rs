@@ -76,14 +76,7 @@ where
                 return;
             }
             self.ring.remove(&key);
-            let mut index = 0;
-            for j in 0..self.sorted_keys.len() {
-                if self.sorted_keys[j] == key {
-                    index = j;
-                    break;
-                }
-            }
-            self.sorted_keys.remove(index);
+            self.sorted_keys.retain(|&k| k != key);
         }
     }
 
@@ -150,7 +143,10 @@ mod test {
         assert_eq!(Some(&node(15325)), hash_ring.get_node("seven".to_string()));
         assert_eq!(Some(&node(15326)), hash_ring.get_node("hello".to_string()));
         assert_eq!(Some(&node(15327)), hash_ring.get_node("dude".to_string()));
-        assert_eq!(Some(&node(15328)), hash_ring.get_node("fourteen".to_string()));
+        assert_eq!(
+            Some(&node(15328)),
+            hash_ring.get_node("fourteen".to_string())
+        );
         assert_eq!(Some(&node(15329)), hash_ring.get_node("five".to_string()));
 
         hash_ring.remove_node(&node(15329));
